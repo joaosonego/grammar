@@ -1,0 +1,77 @@
+<app-home-button></app-home-button>
+@if (model) {
+    <div class="fx-column fx-gap-10 p-20">
+        <div>
+            <mat-card class="fx-column fx-center-stretch p-20">
+                <mat-card-title class="fx-center-center mt-10 mb-10 color-primary"><strong>Terminais</strong></mat-card-title>
+                <mat-card-content class="color-primary fx-row fx-center-center fx-grow fx-gap-10">
+                    <span>{{'{'}}</span>
+                    @for (item of model.terminais; track $index) {
+                        @if(item === null){
+                            <span>ε</span>
+                        }
+                        @else {
+                            <span>{{ item }}</span>
+                        }
+                    }
+                    <span>{{'}'}}</span>
+                </mat-card-content>
+            </mat-card>
+        </div>
+        <div>
+            <mat-card class="fx-column fx-center-stretch p-20">
+                <mat-card-title class="fx-center-center mt-10 mb-10 color-primary"><strong>Não Terminais</strong></mat-card-title>
+                <mat-card-content class="color-primary fx-row fx-center-center fx-grow fx-gap-10">
+                    <span>{{'{'}}</span>
+                    @for (item of model.naoTerminais; track $index) {
+                        <span>{{ item.naoTerminal }}</span>
+                    }
+                    <span>{{'}'}}</span>
+                </mat-card-content>
+            </mat-card>
+        </div>
+        <div>
+            <mat-card class="fx-column fx-center-stretch p-20">
+                <mat-card-title class="fx-center-center mt-10 mb-10 color-primary"><strong>Produções</strong></mat-card-title>
+                <mat-card-content class="color-primary fx-row fx-grow  fx-gap-10">
+                    <div class="fx-row fx-grow fx-center fx-gap-10">
+                        @for (item of model.naoTerminais; track $index) {
+                          <mat-card class="fx-column fx-center-stretch p-20">
+                                <mat-card-title class="fx-center-center mt-10 mb-10 color-primary"><strong>{{ item.naoTerminal }}</strong></mat-card-title>
+                                <mat-card-content class="color-primary fx-column fx-center-center fx-grow fx-gap-10">
+                                    <div class="fx-row fx-grow fx-gap-10">
+                                    <div>
+                                        Produções:
+                                    </div>
+                                    <div class="fx-column fx-gap-10">
+                                        @for (producao of item.producoes; track $index) {
+                                            @if(producao){
+                                                <span>{{ producao }}</span>
+                                            }
+                                            @if(producao === null){
+                                                <span>ε</span>
+                                            }
+                                        }
+                                    </div>
+                                    </div>
+                                </mat-card-content>
+                          </mat-card>
+                        }
+                    </div>
+                </mat-card-content>
+            </mat-card>
+        </div>
+        <div>
+            <mat-card class="fx-column fx-center-stretch p-20">
+                <mat-card-title class="fx-center-center mt-10 mb-10 color-primary"><strong>Sentença gerada</strong></mat-card-title>
+                <mat-card-content class="color-primary fx-row fx-center-center fx-grow fx-gap-10">
+                    @for (item of resultado; track $index) {
+                        @if(item !== null){
+                            <span>{{ item }}</span>
+                        }
+                    }
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+}

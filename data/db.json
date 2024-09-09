@@ -1,0 +1,127 @@
+{
+  "grammar": [
+    {
+      "id": "1",
+      "terminais": [
+        "a",
+        "b",
+        "c",
+        null
+      ],
+      "naoTerminais": [
+        {
+          "naoTerminal": "S",
+          "producoes": [
+            "aA",
+            "bS"
+          ]
+        },
+        {
+          "naoTerminal": "A",
+          "producoes": [
+            "cA",
+            "bA",
+            null
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "terminais": [
+        "a",
+        "b",
+        "c"
+      ],
+      "naoTerminais": [
+        {
+          "naoTerminal": "S",
+          "producoes": [
+            "aA",
+            "bB"
+          ]
+        },
+        {
+          "naoTerminal": "A",
+          "producoes": [
+            "cA",
+            "cB"
+          ]
+        },
+        {
+          "naoTerminal": "B",
+          "producoes": [
+            "bB",
+            "b"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "terminais": [
+        "a",
+        "b",
+        "c",
+        null
+      ],
+      "naoTerminais": [
+        {
+          "naoTerminal": "S",
+          "producoes": [
+            "aSb",
+            "Sa",
+            "bA"
+          ]
+        },
+        {
+          "naoTerminal": "A",
+          "producoes": [
+            "c",
+            null
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "terminais": [
+        "a",
+        "b",
+        "c",
+        null
+      ],
+      "naoTerminais": [
+        {
+          "naoTerminal": "S",
+          "producoes": [
+            "aA",
+            "bB",
+            "cC"
+          ]
+        },
+        {
+          "naoTerminal": "A",
+          "producoes": [
+            "aB",
+            "aC"
+          ]
+        },
+        {
+          "naoTerminal": "B",
+          "producoes": [
+            "aA",
+            "bC"
+          ]
+        },
+        {
+          "naoTerminal": "C",
+          "producoes": [
+            "c",
+            null
+          ]
+        }
+      ]
+    }
+  ]
+}

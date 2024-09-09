@@ -1,0 +1,141 @@
+<app-home-button></app-home-button>
+<div>
+    <mat-stepper [linear]="true" #stepper>
+      <mat-step label="Terminais" [stepControl]="terminalForm">
+        <form [formGroup]="terminalForm" class="fx-column fx-gap-10 fx-start-stretch pr-20 pl-20">
+          <div class="fx-row fx-gap-10 fx-center-center">
+            <mat-form-field class="mt-20">
+              <mat-label>Terminal</mat-label>
+              <input matInput formControlName="terminal">
+            </mat-form-field>
+            <button mat-mini-fab (click)="addTerminal()"
+              [disabled]="terminalForm.get('terminal').invalid || !terminalForm.get('terminal').value">
+              <mat-icon>add</mat-icon>
+            </button>
+            @if (hasVazio){
+            <button mat-flat-button (click)="hasVazio = !hasVazio;">
+              ε
+            </button>
+            }
+            @else{
+            <button mat-raised-button (click)="hasVazio = !hasVazio;">
+              ε
+            </button>
+            }
+          </div>
+          <div class="fx-row fx-gap-10 fx-start-center">
+            <mat-form-field class="mt-20 fx-grow" style="max-width: 100%;">
+              <mat-label>Terminais adicionados</mat-label>
+              <input matInput formControlName="terminalList" readonly="true">
+            </mat-form-field>
+            <button mat-mini-fab (click)="clearTerminal()">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </form>
+        <div class="fx-grow fx-row fx-end-end">
+          <button mat-raised-button matStepperNext [disabled]="terminalForm.invalid">
+            Próximo
+          </button>
+        </div>
+      </mat-step>
+  
+      <mat-step label="Não terminais" [stepControl]="naoTerminalForm">
+        <form [formGroup]="naoTerminalForm" class="fx-column fx-gap-10 fx-start-stretch pr-20 pl-20">
+          <div class="fx-row fx-gap-10 fx-center-center">
+            <mat-form-field class="mt-20">
+              <mat-label>Não terminal</mat-label>
+              <input matInput formControlName="naoTerminal">
+            </mat-form-field>
+            <button mat-mini-fab (click)="addNaoTerminal()"
+              [disabled]="naoTerminalForm.get('naoTerminal').invalid || !naoTerminalForm.get('naoTerminal').value">
+              <mat-icon>add</mat-icon>
+            </button>
+          </div>
+          <div class="fx-row fx-gap-10 fx-start-center">
+            <mat-form-field class="mt-20 fx-grow" style="max-width: 100%;">
+              <mat-label>Não terminais adicionados</mat-label>
+              <input matInput formControlName="naoTerminalList" readonly="true">
+            </mat-form-field>
+            <button mat-mini-fab (click)="clearNaoTerminal()">
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </form>
+        <div class="fx-grow fx-row fx-end-end">
+          <button mat-raised-button matStepperNext [disabled]="naoTerminalForm.invalid">
+            Gerar produções
+          </button>
+        </div>
+      </mat-step>
+  
+      <mat-step label="Produções">
+        <div class="fx-column fx-center-center fx-grow fx-gap-10">
+          <div class="fx-row fx-gap-10">
+            @for (terminal of terminais; track $index) {
+              <button mat-raised-button (click)="addToProducao(terminal)">{{ terminal }}</button>
+            }
+            @for (item of naoTerminais; track $index) {
+              <button mat-raised-button (click)="addToProducao(item.naoTerminal)">
+                {{ item.naoTerminal }}
+              </button>
+            }
+          </div>
+  
+          <div class="fx-row fx-gap-10 fx-center-center">
+            <form>
+              <mat-form-field class="mt-20">
+                <mat-label>Nova produção</mat-label>
+                <input matInput [(ngModel)]="novaProducao" [ngModelOptions]="{standalone: true}" readonly="true">
+              </mat-form-field>
+            </form>
+            <button mat-mini-fab (click)="clearNovaProducao()">
+              <mat-icon>delete</mat-icon>
+            </button>
+            @for (item of naoTerminais; track $index) {
+              <button mat-flat-button (click)="addProducao(item.naoTerminal)" [disabled]="novaProducao.length == 0">
+                <mat-icon>add</mat-icon>
+                {{ item.naoTerminal }}
+              </button>
+            }
+          </div>
+  
+          <div class="fx-row fx-grow fx-gap-10">
+            @for (item of naoTerminais; track $index) {
+              <mat-card class="fx-grow p-20">
+                <mat-card-title class="fx-center-center mt-10 mb-10 color-primary"><strong>{{ item.naoTerminal }}</strong></mat-card-title>
+                <mat-card-content class="color-primary fx-column fx-grow fx-gap-10">
+                  <div class="fx-row fx-grow fx-gap-10">
+                    <div>
+                      Produções:
+                    </div>
+                    <div class="fx-column fx-gap-10">
+                      @for (producao of item.producoes; track $index) {
+                        @if(producao){
+                          <span>{{ producao }}</span>
+                        }
+                      }
+                    </div>
+                  </div>
+                  @if(hasVazio){
+                    @if (!item.producoes.includes(null)) {
+                      <button mat-raised-button (click)="addVazio(item.naoTerminal)">ε</button>
+                    }
+                    @else {
+                      <button mat-flat-button (click)="removeVazio(item.naoTerminal)">ε</button>
+                    }
+                  }
+                </mat-card-content>
+              </mat-card>
+            }
+          </div>
+        </div>
+        
+        <div class="fx-grow fx-row fx-end-end">
+          <button mat-raised-button (click)="save()" [disabled]="!isValid() || isLoading">
+            Salvar
+          </button>
+        </div>
+      </mat-step>
+    </mat-stepper>
+  </div>
