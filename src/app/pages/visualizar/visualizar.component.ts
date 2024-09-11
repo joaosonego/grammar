@@ -1,21 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { GramaticaService } from '../core/services/gramatica.service';
-import Grammar from '../core/classes/grammar';
-import { MessageService } from '../core/services/snackbar-message.service';
-import { HomeButtonComponent } from '../core/components/home-button.component';
+import { GramaticaService } from '../../core/services/gramatica.service';
+import Grammar from '../../core/classes/grammar';
+import { MessageService } from '../../core/services/snackbar-message.service';
+import { HomeButtonComponent } from '../../core/components/home-button.component';
 import { MatCardModule } from '@angular/material/card';
-import { Gramatica } from '../pages/gramatica/gramatica.model';
+import { Gramatica } from '../gramatica/gramatica.model';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-visualizar',
   standalone: true,
   imports: [
     HomeButtonComponent,
-    MatCardModule
+    MatCardModule,
+    MatButtonModule
   ],
   templateUrl: './visualizar.component.html',
-  styleUrl: '../../../public/css/flexbox.css'
+  styleUrl: '../../../../public/css/flexbox.css'
 })
 export class VisualizarComponent implements OnInit {
 
@@ -46,12 +48,13 @@ export class VisualizarComponent implements OnInit {
       }
       this.resultado = this.gramatica.buildSentence();
       this.model = res;
-
-      console.log(this.resultado);
     },
     () => {
       this.message.error('Erro ao carregar a página');
     })
   }
 
+  gerarNovaSentenca(){
+    this.resultado = this.gramatica.buildSentence();
+  }
 }

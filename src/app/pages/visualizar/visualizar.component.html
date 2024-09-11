@@ -64,12 +64,17 @@
         <div>
             <mat-card class="fx-column fx-center-stretch p-20">
                 <mat-card-title class="fx-center-center mt-10 mb-10 color-primary"><strong>Sentença gerada</strong></mat-card-title>
-                <mat-card-content class="color-primary fx-row fx-center-center fx-grow fx-gap-10">
-                    @for (item of resultado; track $index) {
-                        @if(item !== null){
-                            <span>{{ item }}</span>
+                <mat-card-content class="color-primary fx-column fx-center-center fx-grow fx-gap-10">
+                    <div class="color-primary fx-row fx-center-center fx-grow fx-gap-10">
+                        @for (item of resultado; track $index) {
+                            @if(item !== null){
+                                <span>{{ item }}</span>
+                            }
                         }
-                    }
+                    </div>
+                    <div>
+                        <button mat-raised-button (click)="gerarNovaSentenca()">Gerar nova sentença</button>
+                    </div>
                 </mat-card-content>
             </mat-card>
         </div>
